@@ -1,0 +1,466 @@
+STATE:
+sidebarVisible-true,
+activeMenu-"Dashboard",
+notifications-5,
+userName-"Tahir"
+
+SCRIPT:
+const todos = [
+  { text: "Learn Rind.js basics", done: true },
+  { text: "Build a website", done: false },
+  { text: "Publish on npm", done: false },
+  { text: "Teach someone else", done: false }
+];
+
+const team = [
+  { name: "Ahmed", role: "Frontend Dev", color: "#6366f1" },
+  { name: "Fatima", role: "Backend Dev", color: "#ec4899" },
+  { name: "Bilal", role: "Designer", color: "#10b981" }
+];
+
+function toggleSidebar() {
+  STATE.sidebarVisible = !STATE.sidebarVisible;
+  RERENDER();
+}
+
+function setMenu(name) {
+  STATE.activeMenu = name;
+  RERENDER();
+}
+
+function clearNotifications() {
+  STATE.notifications = 0;
+  RERENDER();
+}
+
+function Card(props) {
+  return createElement('div', {
+    style: {
+      background: '#ffffff',
+      padding: '20px',
+      borderRadius: '12px',
+      border: '1px solid #e2e8f0',
+      boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+      flex: '1'
+    }
+  },
+    createElement('div', {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: '12px'
+      }
+    },
+      createElement('span', {
+        style: { fontSize: '1.6rem' }
+      }, props.icon || '✨'),
+      createElement('span', {
+        style: {
+          fontSize: '0.7rem',
+          fontWeight: 'bold',
+          color: props.color || '#6366f1',
+          background: (props.color || '#6366f1') + '22',
+          padding: '4px 10px',
+          borderRadius: '20px'
+        }
+      }, props.badge || 'NEW')
+    ),
+    createElement('h3', {
+      style: {
+        margin: '0 0 8px 0',
+        color: '#0f172a',
+        fontSize: '1.1rem',
+        fontWeight: 'bold'
+      }
+    }, props.title),
+    createElement('p', {
+      style: {
+        margin: '0',
+        color: '#64748b',
+        fontSize: '0.85rem',
+        lineHeight: '1.5'
+      }
+    }, props.body)
+  );
+}
+
+[
+  DI-flex,
+  FLE-column,
+  WI-FULL,
+  HEI-XL,
+  BG-#f1f5f9,
+  OVF-hidden,
+  FONF-Segoe UI,
+  MA-0,
+  PA-0,
+
+  {
+    TAG-header,
+    DI-flex,
+    JUS-space-between,
+    ALI-center,
+    PA-16px 24px,
+    BG-#0f172a,
+    COL-#ffffff,
+    BOX-0 4px 20px rgba(0,0,0,0.25),
+    POS-relative,
+    ZIN-10,
+
+    {
+      DI-flex,
+      ALI-center,
+      GAP-12px,
+      {
+        TEXT-"⚡",
+        FON-1.8rem
+      },
+      {
+        TEXT-"Rind.js",
+        COL-#6366f1,
+        FON-1.6rem,
+        FONW-bold
+      },
+      {
+        TEXT-"Dashboard",
+        COL-#94a3b8,
+        FON-1rem
+      }
+    },
+
+    {
+      DI-flex,
+      ALI-center,
+      GAP-16px,
+      {
+        TAG-button,
+        TEXT-"🔔 " + STATE.notifications,
+        PA-8px 14px,
+        BG-#1e293b,
+        COL-#ffffff,
+        BOR-20px,
+        CUR-pointer,
+        BO-none,
+        FON-0.9rem,
+        ONCLICK-clearNotifications
+      },
+      {
+        DI-flex,
+        ALI-center,
+        GAP-8px,
+        PA-6px 12px,
+        BG-#1e293b,
+        BOR-20px,
+        {
+          TEXT-"👤",
+          FON-1.1rem
+        },
+        {
+          TEXT-STATE.userName,
+          COL-#e2e8f0,
+          FON-0.9rem,
+          FONW-bold
+        }
+      },
+      {
+        TAG-button,
+        TEXT-STATE.sidebarVisible ? "◀ Hide" : "▶ Show",
+        PA-8px 16px,
+        BG-#6366f1,
+        COL-#ffffff,
+        BOR-8px,
+        CUR-pointer,
+        BO-none,
+        FON-0.85rem,
+        FONW-bold,
+        ONCLICK-toggleSidebar
+      }
+    }
+  },
+
+  {
+    DI-flex,
+    FLE-row,
+    FLX-1,
+    OVF-hidden,
+
+    {
+      TAG-aside,
+      DI-STATE.sidebarVisible ? "flex" : "none",
+      FLE-column,
+      WI-260px,
+      BG-#1e293b,
+      COL-#ffffff,
+      PA-20px 16px,
+      GAP-6px,
+      OVE-auto,
+
+      {
+        TEXT-"MAIN MENU",
+        COL-#64748b,
+        FON-0.7rem,
+        FONW-bold,
+        MA-0 0 10px 12px
+      },
+
+      {
+        TAG-div,
+        DI-flex,
+        ALI-center,
+        GAP-12px,
+        PA-12px,
+        BOR-10px,
+        CUR-pointer,
+        BG-STATE.activeMenu === "Dashboard" ? "#6366f1" : "transparent",
+        COL-STATE.activeMenu === "Dashboard" ? "#ffffff" : "#cbd5e1",
+        FONW-STATE.activeMenu === "Dashboard" ? "bold" : "normal",
+        ONCLICK-setMenu,
+        {
+          TEXT-"📊",
+          FON-1.1rem
+        },
+        {
+          TEXT-"Dashboard",
+          FON-0.95rem
+        }
+      },
+
+      {
+        TAG-div,
+        DI-flex,
+        ALI-center,
+        GAP-12px,
+        PA-12px,
+        BOR-10px,
+        CUR-pointer,
+        BG-STATE.activeMenu === "Profile" ? "#6366f1" : "transparent",
+        COL-STATE.activeMenu === "Profile" ? "#ffffff" : "#cbd5e1",
+        FONW-STATE.activeMenu === "Profile" ? "bold" : "normal",
+        ONCLICK-setMenu,
+        {
+          TEXT-"👤",
+          FON-1.1rem
+        },
+        {
+          TEXT-"Profile",
+          FON-0.95rem
+        }
+      },
+
+      {
+        TAG-div,
+        DI-flex,
+        ALI-center,
+        GAP-12px,
+        PA-12px,
+        BOR-10px,
+        CUR-pointer,
+        BG-STATE.activeMenu === "Messages" ? "#6366f1" : "transparent",
+        COL-STATE.activeMenu === "Messages" ? "#ffffff" : "#cbd5e1",
+        FONW-STATE.activeMenu === "Messages" ? "bold" : "normal",
+        ONCLICK-setMenu,
+        {
+          TEXT-"💬",
+          FON-1.1rem
+        },
+        {
+          TEXT-"Messages",
+          FON-0.95rem
+        }
+      },
+
+      {
+        TAG-div,
+        DI-flex,
+        ALI-center,
+        GAP-12px,
+        PA-12px,
+        BOR-10px,
+        CUR-pointer,
+        BG-STATE.activeMenu === "Settings" ? "#6366f1" : "transparent",
+        COL-STATE.activeMenu === "Settings" ? "#ffffff" : "#cbd5e1",
+        FONW-STATE.activeMenu === "Settings" ? "bold" : "normal",
+        ONCLICK-setMenu,
+        {
+          TEXT-"⚙️",
+          FON-1.1rem
+        },
+        {
+          TEXT-"Settings",
+          FON-0.95rem
+        }
+      }
+    },
+
+    {
+      TAG-main,
+      FLX-1,
+      PA-24px,
+      OVE-auto,
+
+      {
+        TEXT-"Welcome back, " + STATE.userName + "! 👋",
+        FON-1.8rem,
+        FONW-bold,
+        COL-#0f172a,
+        MA-0 0 6px 0
+      },
+      {
+        TEXT-"Yahan aap Rind.js ke Components aur Lists dono dekh sakte hain.",
+        COL-#64748b,
+        FON-0.95rem,
+        MA-0 0 24px 0
+      },
+
+      {
+        TEXT-"🧩 COMPONENTS (USE)",
+        FON-0.8rem,
+        FONW-bold,
+        COL-#6366f1,
+        MA-0 0 12px 0
+      },
+
+      {
+        DI-flex,
+        FLE-row,
+        GAP-16px,
+        MA-0 0 32px 0,
+        { USE-Card, TITLE-"Fast Build", BODY-"Rind.js bohat tez hai aur aasan syntax ke saath aata hai.", ICON-"🚀", COLOR-#6366f1, BADGE-"SPEED" },
+        { USE-Card, TITLE-"Beautiful UI", BODY-"Ek short syntax se poori modern website bana sakte hain.", ICON-"🎨", COLOR-#ec4899, BADGE-"DESIGN" },
+        { USE-Card, TITLE-"Reactive", BODY-"STATE badlo aur RERENDER() call karo — UI khud update ho jayegi.", ICON-"⚡", COLOR-#10b981, BADGE-"STATE" }
+      },
+
+      {
+        TEXT-"📋 LISTS (EACH)",
+        FON-0.8rem,
+        FONW-bold,
+        COL-#6366f1,
+        MA-0 0 12px 0
+      },
+
+      {
+        TAG-div,
+        BG-#ffffff,
+        BOR-14px,
+        BO-1px solid #e2e8f0,
+        BOX-0 1px 3px rgba(0,0,0,0.06),
+        PA-20px,
+        MA-0 0 24px 0,
+
+        {
+          TEXT-"Mere Tasks",
+          FON-1.1rem,
+          FONW-bold,
+          COL-#0f172a,
+          MA-0 0 14px 0
+        },
+
+        {
+          TAG-div,
+          EACH-todos,
+          AS-todo,
+          {
+            TAG-div,
+            DI-flex,
+            ALI-center,
+            GAP-12px,
+            PA-10px 0,
+            {
+              TEXT-todo.done ? "✅" : "⏳",
+              FON-1.2rem
+            },
+            {
+              TEXT-todo.text,
+              COL-todo.done ? "#94a3b8" : "#334155",
+              FON-0.9rem,
+              FONW-todo.done ? "normal" : "bold"
+            }
+          }
+        }
+      },
+
+      {
+        TAG-div,
+        BG-#ffffff,
+        BOR-14px,
+        BO-1px solid #e2e8f0,
+        BOX-0 1px 3px rgba(0,0,0,0.06),
+        PA-20px,
+
+        {
+          TEXT-"Meri Team",
+          FON-1.1rem,
+          FONW-bold,
+          COL-#0f172a,
+          MA-0 0 14px 0
+        },
+
+        {
+          TAG-div,
+          DI-flex,
+          FLE-row,
+          GAP-12px,
+          EACH-team,
+          AS-member,
+          {
+            TAG-div,
+            FLX-1,
+            BG-${member.color}15,
+            BO-1px solid ${member.color}44,
+            BOR-10px,
+            PA-14px,
+            TEXA-center,
+            {
+              TEXT-"👤",
+              FON-1.8rem,
+              MA-0 0 6px 0
+            },
+            {
+              TEXT-member.name,
+              COL-#0f172a,
+              FON-0.95rem,
+              FONW-bold,
+              MA-0 0 2px 0
+            },
+            {
+              TEXT-member.role,
+              COL-#64748b,
+              FON-0.8rem
+            }
+          }
+        }
+      }
+    }
+  },
+
+  {
+    TAG-footer,
+    BG-#0f172a,
+    COL-#94a3b8,
+    PA-16px 24px,
+    DI-flex,
+    JUS-space-between,
+    ALI-center,
+    FON-0.85rem,
+    {
+      TEXT-"© 2026 Rind.js Framework. Made by Tahir."
+    },
+    {
+      DI-flex,
+      GAP-18px,
+      {
+        TEXT-"Docs",
+        CUR-pointer
+      },
+      {
+        TEXT-"GitHub",
+        CUR-pointer
+      },
+      {
+        TEXT-"Support",
+        CUR-pointer
+      }
+    }
+  }
+]

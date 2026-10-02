@@ -1,0 +1,11 @@
+{
+  "name": "tahir-code-easy",
+  "version": "1.0.0",
+  "description": "A React-like framework with .it syntax and built-in Tailwind CSS",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "rind-core": "workspace:*",
+    "vite-plugin-it": "workspace:*"
+  }
+}
