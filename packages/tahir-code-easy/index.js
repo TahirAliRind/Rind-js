@@ -1,5 +1,12 @@
-// Yeh package sirf dependencies ko expose karta hai
-// User ise install karega aur uska framework automatically setup ho jayega
+// tahir-code-easy — Rind.js framework
+// Yeh package rind-core aur vite-plugin-it ko ek jagah expose karta hai
 
-export { default as rindCore } from 'rind-core';
-export { default as vitePluginIt } from 'vite-plugin-it';
+export {
+  createElement,
+  render,
+  renderApp,
+  rerender,
+  RERENDER,
+} from '@tahir-baloch1408/rind-core';
+
+export { default as vitePluginIt } from '@tahir-baloch1408/vite-plugin-it';

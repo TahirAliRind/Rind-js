@@ -1,9 +1,13 @@
 {
-  "name": "vite-plugin-it",
+  "name": "@tahir-baloch1408/vite-plugin-it",
   "version": "1.0.0",
+  "description": "Vite plugin for .it files (Rind.js framework)",
   "main": "src/index.js",
   "type": "module",
+  "keywords": ["vite", "plugin", "rind", "it-syntax"],
+  "author": "Tahir",
+  "license": "MIT",
   "dependencies": {
-    "rind-core": "workspace:*"
+    "@tahir-baloch1408/rind-core": "^1.0.0"
   }
 }

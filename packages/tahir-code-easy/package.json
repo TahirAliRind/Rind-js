@@ -1,17 +1,17 @@
 {
-  "name": "code-easy",
-  "version": "1.0.0",
-  "description": "A React-like framework with .it syntax and built-in Tailwind CSS",
+  "name": "tahir-code-easy",
+  "version": "2.0.0",
+  "description": "React-like framework with .it syntax and Tailwind CSS built-in",
   "main": "index.js",
   "type": "module",
-  "keywords": ["rind", "code-easy", "framework", "it-syntax"],
+  "keywords": ["rind", "code-easy", "framework", ".it", "tahir"],
   "author": "Tahir",
   "license": "MIT",
   "dependencies": {
-    "rind-core": "workspace:*",
-    "vite-plugin-it": "workspace:*",
-    "vite": "^5.0.0",
+    "@tahir-baloch1408/rind-core": "^1.0.0",
+    "@tahir-baloch1408/vite-plugin-it": "^1.0.0",
     "@tailwindcss/vite": "^4.3.3",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "vite": "^5.0.0"
   }
 }

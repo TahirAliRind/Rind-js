@@ -1,0 +1,12 @@
+{
+  "name": "create-tahir-code-easy",
+  "version": "1.0.0",
+  "description": "Create a new Rind.js project",
+  "type": "module",
+  "bin": {
+    "create-tahir-code-easy": "./bin/index.js"
+  },
+  "keywords": ["rind", "create", "scaffold", "tahir"],
+  "author": "Tahir",
+  "license": "MIT"
+}

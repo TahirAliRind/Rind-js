@@ -1,6 +1,10 @@
 {
-  "name": "rind-core",
+  "name": "@tahir-baloch1408/rind-core",
   "version": "1.0.0",
+  "description": "Rind.js core runtime",
   "main": "src/index.js",
-  "type": "module"
+  "type": "module",
+  "keywords": ["rind", "framework", "runtime"],
+  "author": "Tahir",
+  "license": "MIT"
 }
