@@ -1,4 +1,4 @@
-// .it syntax compiler - v7 (template literal support)
+// .it syntax compiler - v7 (fixed CSS values)
 
 const EVENT_MAP = {
   'ONCLICK': 'onClick', 'ONCHANGE': 'onChange', 'ONINPUT': 'onInput',
@@ -87,13 +87,11 @@ function isPureString(value) {
   return false;
 }
 
-// Kya value JS code hai? (STATE.x, props.x, "a" + b, x ? y : z)
 function isJsCode(value) {
   const v = value.trim();
   if (!v) return false;
   if (/\bSTATE\s*\./.test(v)) return true;
   if (/\bprops\s*\./.test(v)) return true;
-  // Pure identifier.identifier (whole value)
   if (/^[a-zA-Z_$][\w$]*\s*\.\s*[a-zA-Z_$][\w$]*(\s*[+\-*/]\s*.+)?$/.test(v)) return true;
   if (/\s\+\s/.test(v)) return true;
   if (/\s\?\s/.test(v)) return true;
@@ -104,10 +102,8 @@ function isJsCode(value) {
   return false;
 }
 
-// Value ko JS code string mein badalta hai
 function valueToCode(value) {
   const v = value.trim();
-  // Template literal syntax (${...})
   if (v.includes('${')) {
     return '`' + v.replace(/`/g, '\\`') + '`';
   }
@@ -130,7 +126,6 @@ function buildStyleString(props) {
     let valueCode;
     const raw = p.value;
     if (raw.includes('${')) {
-      // Template literal
       valueCode = '`' + raw.replace(/`/g, '\\`') + '`';
     } else if (isJsCode(raw)) {
       valueCode = `(${raw})`;
@@ -208,7 +203,6 @@ function compileChildElement(childStr) {
     }
   }
 
-  // ⭐ COMPONENT USAGE
   if (useComponent) {
     const propsEntries = props.map(p => {
       const key = p.key.toLowerCase();
@@ -217,7 +211,6 @@ function compileChildElement(childStr) {
     return `${useComponent}({ ${propsEntries.join(', ')} })`;
   }
 
-  // ⭐ LOOP
   if (eachExpr) {
     if (children.length === 0) {
       throw new Error('EACH ke saath kam az kam ek { } body honi chahiye');
@@ -234,7 +227,6 @@ function compileChildElement(childStr) {
     return `createElement('${type}', ${propsStr}, ...(${eachExpr} || []).map(${asVar} => ${bodyExpr}))`;
   }
 
-  // Normal element
   if (!elementType) {
     elementType = textRaw !== null ? 'p' : 'div';
   }
@@ -262,11 +254,8 @@ function parseStateBlock(stateCode) {
 
     let value = pair.value;
     if (/^-?\d+(\.\d+)?$/.test(value)) {
-      // number
     } else if (value === 'true' || value === 'false') {
-      // boolean
     } else if (isPureString(value)) {
-      // already quoted
     } else {
       value = JSON.stringify(value);
     }
@@ -347,7 +336,7 @@ export function transformItToJs(source) {
   const scriptBlock = scriptCode ? scriptCode + '\n\n' : '';
 
   return `
-import { createElement, rerender as RERENDER } from 'rind-core';
+import { createElement, rerender as RERENDER } from 'tahir-code-easy';
 
 ${stateBlock}${scriptBlock}export default function build() {
   return createElement(${createElementArgs});

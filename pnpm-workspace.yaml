@@ -3,3 +3,7 @@ packages:
 
 allowBuilds:
   esbuild: true
+
+minimumReleaseAgeExclude:
+  - '@tahir-baloch1408/rind-core@1.0.0'
+  - '@tahir-baloch1408/vite-plugin-it@1.0.0'
